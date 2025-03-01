@@ -17,8 +17,6 @@ export default function Home() {
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Failed to load</div>;
 
-  console.log(data)
-
   const [page, setPage] = useState(0);
   const [message, setMessage] = useState('')
   const [errors, setErrors] = useState({})
@@ -38,7 +36,6 @@ export default function Home() {
         body: jsonData
     }
     const response = await fetch(WAITLIST_API_URL, requestOptions)
-    console.log(response.status)
     if (response.status === 201 || response.status === 200) {
       setPage(1);
     } else {
