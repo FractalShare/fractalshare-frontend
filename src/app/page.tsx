@@ -55,7 +55,7 @@ export default function Home() {
       </header>
 
       <div className="mt-6" />
-          <h5 className="text-mb mb-8 text-gray-600"><i>RMD</i> | Decentralized Energy</h5>
+          <h5 className="text-mb mb-8 text-gray-600"><i>RMD</i> | Decentralized Commodity Trading</h5>
           {page == 0 &&
           <><h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff9a9e] via-[#fad0c4] to-[#fbc2eb]">Your Market. Your Rules.</h1>
           <p className="mt-8 text-lg text-[#C0C0C0] max-w-2xl">
