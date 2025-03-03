@@ -49,17 +49,17 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#0d0d0d] via-[#0d0d0d] to-[#0d0d0d]">
-      <header className="fixed top-0 left-0 w-full bg-[#C0C0C0] z-50 py-2 flex justify-center items-center shadow-md shadow-white">
-        <Image src="/rmd.png" alt="RMD Logo" width={120} height={40} priority />
+    <div className="min-h-screen flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#F8F5F2] via-[#F8F5F2] to-[#F8F5F2]">
+      <header className="w-full flex justify-center items-center">
+        <Image src="/fs.png" alt="Fractal Share Logo" width={120} height={10} priority />
       </header>
 
-      <div className="mt-6" />
-          <h5 className="text-mb mb-8 text-gray-600"><i>RMD</i> | Decentralized Commodity Trading</h5>
+      <div className="" />
+          <h5 className="text-mb mb-8 text-gray-600"><i>FractalShare</i> | Fractional Real Estate</h5>
           {page == 0 &&
-          <><h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff9a9e] via-[#fad0c4] to-[#fbc2eb]">Your Market. Your Rules.</h1>
-          <p className="mt-8 text-lg text-[#C0C0C0] max-w-2xl">
-            Be first to be part of the future of decentralized energy with efficient trading, easy profits, and little to no fees.
+          <><h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#056608] via-[#33A036] to-[#52C755]">Own Land. Build Wealth.</h1>
+          <p className="mt-8 text-lg text-[#C49F56] max-w-2xl">
+            FractalShare lets anyone invest in shares of real estate — starting with just $100 — by enabling fractional ownership of land and farmland.
           </p>
           <form onSubmit={handleSubmit} className="mt-8 w-full max-w-xl space-y-4">
             <div className="relative flex items-center">
@@ -84,7 +84,7 @@ export default function Home() {
             </div>
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-[#ff8080] text-white font-medium rounded-lg shadow-lg hover:bg-[#E31937] transition">
+              className="w-full px-6 py-3 border-2 border-[#1F4F36] text-[#1F4F36] font-medium rounded-lg hover:bg-[#1F4F36] hover:text-white transition">
               Join the Waitlist!
             </button>
           </form>
@@ -95,22 +95,22 @@ export default function Home() {
               <FaYoutube size={28} className="text-red-600" />
             </a>
 
-            <a href="https://www.tiktok.com/@rmd.enterprises?_t=ZT-8uAm1fYdRFL&_r=1" target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center w-14 h-14 bg-white bg-opacity-40 rounded-full hover:bg-opacity-40 hover:scale-110 transition-all duration-300">
+            <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center w-14 h-14 bg-gray-500 bg-opacity-40 rounded-full hover:bg-opacity-40 hover:scale-110 transition-all duration-300">
               <FaTiktok size={28} className="text-black" />
             </a>
 
-            <a href="https://www.instagram.com/rmd.enterprises?igsh=MTNnNHg1Z2FnZ2RlZQ==" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"
               className="flex items-center justify-center w-14 h-14 bg-pink-500 bg-opacity-40 rounded-full hover:bg-opacity-40 hover:scale-110 transition-all duration-300">
               <FaInstagram size={28} className="text-pink-500" />
             </a>
 
-            <a href="https://x.com/rmd_enterprises?s=11&t=mbVaBDSCD-A1AhWECkxgUQ" target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center w-14 h-14 bg-white bg-opacity-40 rounded-full hover:bg-opacity-40 hover:scale-110 transition-all duration-300">
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center w-14 h-14 bg-gray-400 bg-opacity-40 rounded-full hover:bg-opacity-40 hover:scale-110 transition-all duration-300">
               <FaXTwitter size={28} className="text-black" />
             </a>
 
-            <a href="https://www.linkedin.com/in/rmd-enterprises-b559a7352?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"
               className="flex items-center justify-center w-14 h-14 bg-blue-700 bg-opacity-40 rounded-full hover:bg-opacity-40 hover:scale-110 transition-all duration-300">
               <FaLinkedin size={28} className="text-blue-700" />
             </a>

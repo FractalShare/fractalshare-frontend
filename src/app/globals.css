@@ -1,21 +1,46 @@
+@import "@fontsource/montserrat";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Light theme (default) ---------- */
 :root {
+  /* neutral */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* brand */
+  --primary:   #35946d; /* main Fractal Share green */
+  --secondary: #187048; /* darker companion green */
+  --tertiary: #636363;
 }
 
+/* ---------- Dark‑mode overrides ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    /* tweak the brand tones for better contrast on dark */
+    --primary:   #3fbb87;
+    --secondary: #2c6e50;
   }
 }
 
+/* ---------- Global styles ---------- */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* remove number‑input spinners */
+input[type="number"].no-spinner::-webkit-inner-spin-button,
+input[type="number"].no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"].no-spinner {
+  -moz-appearance: textfield;
 }

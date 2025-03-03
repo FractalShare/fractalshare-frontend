@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import ReduxProvider from "../redux/provider";
+import { Setup } from "@/components/utils";
+import { GoogleMapsProvider } from "@/providers/GoogleMapsProvider"; // 👈 import it
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RMD Enterprises",
-  description: "Decentralized energy market",
+  title: "FractalShare",
+  description: "Fractional investment on land",
 };
 
 export default function RootLayout({
@@ -24,10 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ReduxProvider>
+          <GoogleMapsProvider>
+            <Setup />
+            {children}
+          </GoogleMapsProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
