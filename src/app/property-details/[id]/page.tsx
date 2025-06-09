@@ -28,7 +28,7 @@ import { BsFire } from "react-icons/bs";
 import { MdSunny } from "react-icons/md";
 import { BsCoin } from "react-icons/bs";
 import { HiOutlineDocumentCurrencyDollar } from "react-icons/hi2";
-import { NavbarSearch, PropertySection } from '@/components/common';
+import { Dropdown, NavbarSearch, PropertySection } from '@/components/common';
 import AccordionItem from '@/components/common/AccordianItem';
 import { useRouter } from 'next/navigation';
 import { saveOrder } from '@/components/utils/OrderProvider';
@@ -59,7 +59,7 @@ interface Section {
       typeOfLand: 'Farmland',
       percentRemaining: 28,
       isActive: true,
-      location: 'Mayslick, KY, 41055, Mason County',
+      location: 'Mayslick, KY, Mason County',
     },
     {
       imageSrc: '/images/land6.jpg',
@@ -69,7 +69,7 @@ interface Section {
       typeOfLand: 'Land',
       percentRemaining: 45,
       isActive: true,
-      location: 'Alpharetta, GA, 30005, Forsyth County',
+      location: 'Alpharetta, GA, Forsyth County',
     },
     {
       imageSrc: '/images/land2.jpg',
@@ -79,7 +79,7 @@ interface Section {
       typeOfLand: 'Ranch',
       percentRemaining: 60,
       isActive: true,
-      location: 'Bozeman, MT, 59718, Gallatin County',
+      location: 'Bozeman, MT, Gallatin County',
     },
     {
       imageSrc: '/images/land7.jpg',
@@ -89,7 +89,7 @@ interface Section {
       typeOfLand: 'Residential',
       percentRemaining: 80,
       isActive: false,
-      location: 'Sedona, AZ, 86336, Coconino County',
+      location: 'Sedona, AZ, Coconino County',
     },
     {
       imageSrc: '/images/land3.jpg',
@@ -99,7 +99,7 @@ interface Section {
       typeOfLand: 'Residential',
       percentRemaining: 80,
       isActive: true,
-      location: 'Sedona, AZ, 86336, Coconino County',
+      location: 'Sedona, AZ, Coconino County',
     },
   ];
 
@@ -115,7 +115,7 @@ const sections: Section[] = [
 {
     id: 1,
     title: 'Exterior',
-    icon: <GiFarmTractor className="w-5 h-5" />,
+    icon: <GiFarmTractor size={30} />,
     content: (
     <p className="mt-2 text-gray-700">
         • 3-bedroom brick exterior<br />
@@ -127,7 +127,7 @@ const sections: Section[] = [
 {
     id: 2,
     title: 'Utilities',
-    icon: <FiDollarSign className="w-5 h-5" />,
+    icon: <FiDollarSign size={30} />,
     content: (
     <p className="mt-2 text-gray-700">
         • Electricity: 200 A service panel<br />
@@ -139,7 +139,7 @@ const sections: Section[] = [
 {
     id: 3,
     title: 'Location',
-    icon: <FiMapPin className="w-5 h-5" />,
+    icon: <FiMapPin size={30} />,
     content: (
     <p className="mt-2 text-gray-700">
         123 Main St, Springfield, USA<br />
@@ -150,7 +150,7 @@ const sections: Section[] = [
 {
     id: 4,
     title: 'Public facts',
-    icon: <LuScrollText className="w-5 h-5" />,
+    icon: <LuScrollText size={30} />,
     content: (
     <p className="mt-2 text-gray-700">
         • Parcel ID: 000-123-456<br />
@@ -210,10 +210,12 @@ export default function PropertyDetails() {
   const [showFull, setShowFull] = useState(false);
   const tabs = ['Market Value', 'Sale history', 'Tax history'];
   const [activeTab, setActiveTab] = useState<string>('Market Value');
-  const [buyInMode, setBuyInMode] = useState<'Dollars' | 'Shares'>('Dollars');
+  const [buyInMode, setBuyInMode] = useState<string>('Dollars');
   const [amount, setAmount] = useState<number>(0);
   const [numShares, setNumShares] = useState<number>(0);
   const [isBuying, setIsBuying] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [sharesInputFocused, setSharesInputFocused] = useState(false);
 
   const [centsStr, setCentsStr] = useState('');
 
@@ -231,6 +233,9 @@ export default function PropertyDetails() {
     const cents = centsStr.padStart(3, '0');
     const dollars = cents.slice(0, -2);
     const centsPart = cents.slice(-2);
+    if (isFocused && (centsStr === '' || centsStr === '00')) {
+      return '';
+    }
     return `$${Number(dollars)}.${centsPart}`;
   };
 
@@ -347,26 +352,26 @@ export default function PropertyDetails() {
                             <span className="text-sm font-medium">Active</span>
                         </div>
                         <h1 className="text-3xl font-bold">$102,000</h1>
-                        <p className="text-[#636363]">4084 KY Highway 596, Mayslick, KY 41055</p>
+                        <p className="text-basetext">4084 KY Highway 596, Mayslick, KY 41055</p>
                     </div>
 
                     <div className='flex flex-col items-end'>
-                        <div className="flex flex-row text-xs text-[#636363] gap-2">
+                        <div className="flex flex-row text-xs text-newblack gap-2">
                             <span>Property ID:</span>
                             <span>123456789</span>
                         </div>
                         <div className="flex flex-row mt-4 gap-8">
                             <div className="flex flex-col">
                                 <span className="font-semibold mt-1">$102</span>
-                                <span className="text-[#636363] text-sm">per share</span>
+                                <span className="text-basetext text-sm font-medium">per share</span>
                             </div>
                             <div className="flex flex-col">
                                 <span className="font-semibold mt-1">32,000</span>
-                                <span className="text-[#636363] text-sm"> acres</span>
+                                <span className="text-basetext text-sm font-medium"> acres</span>
                             </div>
                             <div className="flex flex-col">
                                 <span className="font-semibold mt-1">1,089,000</span>
-                                <span className="text-[#636363] text-sm"> sqft</span>
+                                <span className="text-basetext text-sm font-medium"> sqft</span>
                             </div>
                         </div>
                     </div>
@@ -376,29 +381,29 @@ export default function PropertyDetails() {
                     <div className="flex items-center rounded-2xl space-x-4 w-1/4 border border-gray-200 p-4">
                         <FiClock size={30}/>
                         <div className='flex flex-col'>
-                            <span>33 days</span>
-                            <span className='text-sm text-[#636363]'>On Fractal Share</span>
+                            <span className='font-medium'>33 days</span>
+                            <span className='text-xs text-basetext'>On Fractal Share</span>
                         </div>
                     </div>
                     <div className="flex items-center rounded-2xl space-x-4 w-1/4 border border-gray-200 p-4">
                         <CiRuler size={30}/>
                         <div className='flex flex-col'>
-                            <span>$189</span>
-                            <span className='text-sm text-[#636363]'>Price/Sq.Ft.</span>
+                            <span className='font-medium'>$189</span>
+                            <span className='text-xs text-basetext'>Price/Sq.Ft.</span>
                         </div>
                     </div>
                     <div className="flex items-center rounded-2xl space-x-4 w-1/4 border border-gray-200 p-4">
                         <IoDocumentTextOutline size={30}/>
                         <div className='flex flex-col'>
-                            <span>$1.84</span>
-                            <span className='text-sm text-[#636363]'>Property tax/share</span>
+                            <span className='font-medium'>$1.84</span>
+                            <span className='text-xs text-basetext'>Property tax/share</span>
                         </div>
                     </div>
                     <div className="flex items-center rounded-2xl space-x-4 w-1/4 border border-gray-200 p-4">
                         <GiFarmTractor size={30}/>
                         <div className='flex flex-col'>
-                            <span>Farmland</span>
-                            <span className='text-sm text-[#636363]'>Property type</span>
+                            <span className='font-medium'>Farmland</span>
+                            <span className='text-xs text-basetext'>Property type</span>
                         </div>
                     </div>
                 </div>
@@ -406,10 +411,10 @@ export default function PropertyDetails() {
 
             <div className="flex flex-col lg:flex-row gap-6">
                 {/* Main Column */}
-                <div id="overview" className="flex-1 border border-gray-200 rounded-xl divide-y p-2 divide-gray-200">
+                <div id="overview" className="flex-1 border border-gray-200 rounded-3xl p-2">
                     {/* About Section */}
                     <div className="p-6 bg-white">
-                        <h2 className="text-xl font-semibold">About This Property</h2>
+                        <h2 className="text-xl font-bold">About This Property</h2>
                         <p className="mt-2 text-gray-700">
                             Discover 25 acres of picturesque farmland nestled in the heart of rural America. This property offers a rare opportunity to invest in open, fertile land surrounded by rolling pastures, soft tree lines, and golden sunset views.
                             {showFull && (
@@ -421,7 +426,7 @@ export default function PropertyDetails() {
                         </p>
                         <button
                             onClick={() => setShowFull(!showFull)}
-                            className="mt-2 text-[#244E3B] text-sm font-medium hover:underline"
+                            className="mt-2 text-primary text-sm font-medium hover:underline"
                         >
                             {showFull ? 'Show less' : 'Show more'}
                         </button>
@@ -437,34 +442,36 @@ export default function PropertyDetails() {
                         </div>
 
                         <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div className="flex items-center space-x-3 border border-gray-200 rounded-lg p-4">
-                            <FaWalking className="h-6 w-6" />
-                            <div>
-                                <p className="font-semibold">0/100</p>
-                                <p className="text-sm text-gray-500">Walk Score</p>
+                            <div className="flex items-center space-x-3 border border-gray-200 rounded-2xl p-4">
+                              <FaWalking size={30} />
+                              <div>
+                                  <p className="font-semibold">0/100</p>
+                                  <p className="text-sm text-basetext">Walk Score</p>
+                              </div>
                             </div>
+                            <div className="flex items-center space-x-3 border border-gray-200 rounded-2xl p-4">
+                              <FaBus size={30} />
+                              <div>
+                                  <p className="font-semibold">0/100</p>
+                                  <p className="text-sm text-basetext">Transit Score</p>
+                              </div>
                             </div>
-                            <div className="flex items-center space-x-3 border border-gray-200 rounded-lg p-4">
-                            <FaBus className="h-6 w-6" />
-                            <div>
-                                <p className="font-semibold">0/100</p>
-                                <p className="text-sm text-gray-500">Transit Score</p>
-                            </div>
-                            </div>
-                            <div className="flex items-center space-x-3 border border-gray-200 rounded-lg p-4">
-                            <FaBicycle className="h-6 w-6" />
-                            <div>
-                                <p className="font-semibold">25/100</p>
-                                <p className="text-sm text-gray-500">Bike Score</p>
-                            </div>
+                            <div className="flex items-center space-x-3 border border-gray-200 rounded-2xl p-4">
+                              <FaBicycle size={30} />
+                              <div>
+                                  <p className="font-semibold">25/100</p>
+                                  <p className="text-sm text-basetext">Bike Score</p>
+                              </div>
                             </div>
                         </div>
                     </div>
 
+                    <hr className='mx-6'/>
+
                     {/* Nearby Schools */}
                     <div className="p-6 bg-white">
                         <h2 className="text-xl font-semibold">Nearby Schools</h2>
-                        <p className="text-sm text-gray-500 mb-4">GreatSchools rating</p>
+                        <p className="text-sm text-basetext mb-4">GreatSchools rating</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {[
                             {
@@ -494,7 +501,7 @@ export default function PropertyDetails() {
                             ].map((school) => (
                             <div
                                 key={school.name}
-                                className="flex items-center space-x-4 border rounded-lg p-4"
+                                className="flex items-center space-x-4 border rounded-2xl p-4"
                             >
                                 <div className="p-2 py-3 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">
                                     {school.rating}
@@ -513,8 +520,8 @@ export default function PropertyDetails() {
             </div>
 
             {/* Property Details Section */}
-            <div id="details" className='border border-gray-200 p-6 rounded-xl'>
-                <h2 className="text-xl font-semibold">Property Details</h2>
+            <div id="details" className='border border-gray-200 p-6 rounded-3xl'>
+                <h2 className="text-xl font-bold">Property Details</h2>
                 <div className="divide-y divide-gray-200 mt-4">
                     {sections.map(({ id, title, icon, content }) => (
                     <AccordionItem key={id} title={title} icon={icon}>
@@ -525,8 +532,8 @@ export default function PropertyDetails() {
             </div>
 
             {/* Financials Section */}
-            <div className="border border-gray-200 rounded-xl p-6 bg-white">
-                <h2 className="text-xl font-semibold mb-4">Financials</h2>
+            <div className="border border-gray-200 rounded-3xl p-6 bg-white">
+                <h2 className="text-xl font-bold mb-4">Financials</h2>
 
                 {/* Tab buttons */}
                 <div className="flex space-x-4 mb-6">
@@ -537,8 +544,8 @@ export default function PropertyDetails() {
                     className={`
                         px-3 py-1 rounded-md transform transition
                         ${activeTab === tab
-                        ? 'font-bold text-black'
-                        : 'font-medium text-gray-800'}
+                        ? 'font-semibold text-newblack'
+                        : 'font-medium text-basetext'}
                         hover:bg-gray-100 hover:scale-105
                     `}
                     >
@@ -553,27 +560,27 @@ export default function PropertyDetails() {
                     <Line data={chartData} options={chartOptions} className="w-full" />
               
                     <div className="flex flex-row gap-8 items-center">
-                      <div className="flex flex-row items-center border p-4 rounded-xl mt-4 w-60">
+                      <div className="flex flex-row items-center border p-4 rounded-2xl mt-4 w-60">
                         <HiOutlineDocumentCurrencyDollar size={30} />
                         <div className="ml-4">
-                          <p className="text-lg font-semibold">$102,000</p>
-                          <p className="text-sm text-gray-600">Price</p>
+                          <p className="font-semibold">$102,000</p>
+                          <p className="text-sm text-basetext">Price</p>
                         </div>
                       </div>
               
-                      <div className="flex flex-row items-center border p-4 rounded-xl mt-4 w-60">
+                      <div className="flex flex-row items-center border p-4 rounded-2xl mt-4 w-60">
                         <IoBarChart size={30} />
                         <div className="ml-4">
-                          <p className="text-lg font-semibold">$98K - $110K</p>
-                          <p className="text-sm text-gray-600">Estimated sales range</p>
+                          <p className="font-semibold">$98K - $110K</p>
+                          <p className="text-sm text-basetext">Estimated sales range</p>
                         </div>
                       </div>
               
-                      <div className="flex flex-row items-center border p-4 rounded-xl mt-4 w-60">
+                      <div className="flex flex-row items-center border p-4 rounded-2xl mt-4 w-60">
                         <BsCoin size={30} />
                         <div className="ml-4">
-                          <p className="text-lg font-semibold">$102</p>
-                          <p className="text-sm text-gray-600">Price per share</p>
+                          <p className="font-semibold">$102</p>
+                          <p className="text-sm text-basetext">Price per share</p>
                         </div>
                       </div>
                     </div>
@@ -620,8 +627,8 @@ export default function PropertyDetails() {
             </div>
 
             {/* Land Records Section */}
-            <div id="records" className="border border-gray-200 rounded-xl p-6 bg-white">
-                <h2 className="text-xl font-semibold">Land Records</h2>
+            <div id="records" className="border border-gray-200 rounded-3xl p-6 bg-white">
+                <h2 className="text-xl font-bold">Land Records</h2>
                 <div className="divide-y divide-gray-200 mt-4 ml-6">
                     {[
                     { title: 'Property Deed', desc: 'Ownership is legally recorded and verified with the county as of May 2017.' },
@@ -634,8 +641,8 @@ export default function PropertyDetails() {
                     <div key={record.title} className="flex items-center py-4">
                         <IoDocumentTextOutline size={30} />
                         <div className="ml-4">
-                            <p className="text-lg font-semibold">{record.title}</p>
-                            <p className="text-sm text-gray-600">{record.desc}</p>
+                            <p className="font-semibold">{record.title}</p>
+                            <p className="text-sm text-basetext">{record.desc}</p>
                         </div>
                     </div>
                     ))}
@@ -644,49 +651,49 @@ export default function PropertyDetails() {
 
 
             {/* Climate Section */}
-            <div id="climate" className='border border-gray-200 rounded-xl p-6'>
+            <div id="climate" className='border border-gray-200 rounded-3xl p-6'>
                 <h2 className="text-xl font-semibold">Climate Risks</h2>
                 <div className="divide-y divide-gray-200 mt-4 ml-6">
                     <div className="flex items-center py-4">
                         <FaWater size={30}/>
                         <div className="ml-4">
-                            <p className="text-lg font-semibold">Flood Factor - Minimal</p>
-                            <p className="text-sm text-gray-600">1/10</p>
+                            <p className="font-semibold">Flood Factor - Minimal</p>
+                            <p className="text-sm text-basetext">1/10</p>
                         </div>
                     </div>
                     <div className="flex items-center py-4">
                         <BsFire size={30}/>
                         <div className="ml-4">
-                            <p className="text-lg font-semibold">Fire Factor - Moderate</p>
-                            <p className="text-sm text-gray-600">4/10</p>
+                            <p className="font-semibold">Fire Factor - Moderate</p>
+                            <p className="text-sm text-basetext">4/10</p>
                         </div>
                     </div>
                     <div className="flex items-center py-4">
                         <MdSunny size={30}/>
                         <div className="ml-4">
-                            <p className="text-lg font-semibold">Heat Factor - Moderate</p>
-                            <p className="text-sm text-gray-600">4/10</p>
+                            <p className="font-semibold">Heat Factor - Moderate</p>
+                            <p className="text-sm text-basetext">4/10</p>
                         </div>
                     </div>
                     <div className="flex items-center py-4">
                         <FiWind size={30}/>
                         <div className="ml-4">
-                            <p className="text-lg font-semibold">Wind Factor - Minor</p>
-                            <p className="text-sm text-gray-600">2/10</p>
+                            <p className="font-semibold">Wind Factor - Minor</p>
+                            <p className="text-sm text-basetext">2/10</p>
                         </div>
                     </div>
                     <div className="flex items-center py-4">
                         <IoCloudOutline size={30}/>
                         <div className="ml-4">
-                            <p className="text-lg font-semibold">Air Factor - Minor</p>
-                            <p className="text-sm text-gray-600">2/10</p>
+                            <p className="font-semibold">Air Factor - Minor</p>
+                            <p className="text-sm text-basetext">2/10</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Nearby Section */}
-            <div id="nearby" className='border border-gray-200 rounded-xl p-6'>
+            <div id="nearby" className='border border-gray-200 rounded-3xl p-6'>
                 <PropertySection
                     title="Nearby properties"
                     subtitle="Based on your location"
@@ -695,7 +702,7 @@ export default function PropertyDetails() {
             </div>
 
             {/* Properties Section */}
-            <div className='border border-gray-200 rounded-xl p-6'>
+            <div className='border border-gray-200 rounded-3xl p-6'>
                 <PropertySection
                     title="Properties for you"
                     subtitle="Based on your preferences"
@@ -708,32 +715,31 @@ export default function PropertyDetails() {
         {/* Sidebar Invest */}
         <div className="flex flex-col w-1/3 space-y-6">
             <div className='sticky top-14'>
-                <div className="border border-gray-200 rounded-xl shadow p-6 bg-white">
+                <div className="border border-gray-200 rounded-3xl shadow p-6 bg-white">
                     <h2 className="text-xl font-semibold mb-4">Invest</h2>
+                    <hr />
                     <div className="space-y-4">
                         <div className="divide-y divide-gray-200 mt-4">
                             <div>
                                 <div className="flex flex-row gap-4 mb-4 w-full justify-between items-center">
-                                    <label className="text-sm font-medium text-gray-700">
-                                        Buy in
-                                    </label>
-                                    <select className="mt-1 w-32 border border-gray-300 rounded-lg p-2 bg-white text-sm"
-                                            value={buyInMode}
-                                            onChange={e => {
-                                                setBuyInMode(e.target.value as 'Dollars' | 'Shares');
-                                                setAmount(0);
-                                                }}
-                                            onClick={() => setIsBuying(false)}>
-                                        <option>Dollars</option>
-                                        <option>Shares</option>
-                                    </select>
+                                    <div className="w-2/3">
+                                      <label className="text-sm font-medium text-basetext">
+                                          Buy in
+                                      </label>
+                                    </div>
+                                    <div className='w-1/3' onClick={() => setIsBuying(false)}>
+                                      <Dropdown initialValue='Select' value={buyInMode} onChange={setBuyInMode}
+                                      options={[{ value: 'Dollars', label: 'Dollars' },{ value: 'Shares', label: 'Shares' }]}/>
+                                    </div>
                                 </div>
 
                                 <div className="flex flex-row gap-4 mb-4 w-full justify-between items-center">
-                                    <label className="text-sm font-medium text-gray-700">
-                                        Amount
-                                    </label>
-                                    <div className="w-32">
+                                    <div className="w-2/3">
+                                      <label className="text-sm font-medium text-basetext">
+                                          Amount
+                                      </label>
+                                    </div>
+                                    <div className="w-1/3">
                                         {buyInMode === 'Dollars' ? (
                                         <input
                                             type="text"
@@ -741,19 +747,27 @@ export default function PropertyDetails() {
                                             value={handleFormattedValue()}
                                             onChange={handleChange}
                                             onClick={() => setIsBuying(false)}
-                                            className="w-full border border-gray-300 rounded-lg p-2 text-sm text-right"
+                                            onFocus={() => setIsFocused(true)}
+                                            onBlur={() => {setIsFocused(false)}}
+                                            className="w-full border border-gray-300 rounded-xl p-2 text-sm text-right"
                                         />
                                         ) : (
                                         <input
-                                            type="text"
-                                            value={amount}
-                                            onChange={e => {
-                                            const num = parseInt(e.target.value, 10);
-                                            setAmount(isNaN(num) ? 0 : num);
-                                            }}
-                                            className="w-full border border-gray-300 rounded-lg p-2 text-sm text-right"
-                                            onClick={() => setIsBuying(false)}
-                                        />
+                                          type="text"
+                                          value={sharesInputFocused && amount === 0 ? '' : amount}
+                                          min={0}
+                                          onFocus={() => setSharesInputFocused(true)}
+                                          onBlur={e => {
+                                            setSharesInputFocused(false);
+                                            if (e.target.value === '' || isNaN(Number(e.target.value))) setAmount(0);
+                                          }}
+                                          onChange={e => {
+                                              const num = parseInt(e.target.value, 10);
+                                              setAmount(isNaN(num) ? 0 : num);
+                                          }}
+                                          onClick={() => setIsBuying(false)}
+                                          className="w-full border border-gray-300 rounded-xl p-2 text-sm text-right"
+                                      />
                                         )}
                                     </div>
                                     </div>
@@ -771,10 +785,16 @@ export default function PropertyDetails() {
                             </div>
                             
                             <div>
-                                <div className="text-sm text-black py-4 justify-between flex items-center">
+                                {buyInMode === 'Dollars' &&
+                                <div className="text-sm py-4 font-semibold justify-between flex items-center">
                                     <span>Estimated quantity</span>
                                     <span>{numShares}</span>
-                                </div>
+                                </div>}
+                                {buyInMode === 'Shares' &&
+                                <div className="text-sm py-4 font-semibold justify-between flex items-center">
+                                    <span>Estimated cost</span>
+                                    <span>${(amount * 102).toLocaleString()}</span>
+                                </div>}
                                 {isBuying &&
                                     <div className='space-y-4 text-sm'>
                                         <span className='font-bold'>Order Summary</span>

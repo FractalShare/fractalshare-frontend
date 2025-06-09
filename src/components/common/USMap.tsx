@@ -212,7 +212,7 @@ export default function USMap() {
             </div>
             <div className="relative mt-3 h-5 bg-primary rounded-full overflow-hidden">
               <div
-                className="absolute left-0 top-0 h-full bg-[#7DC79D]"
+                className="absolute left-0 top-0 h-full bg-secondary"
                 style={{ width: `${activeLocation.owned}%` }}
               />
               <span className="absolute inset-0 flex items-center justify-center text-white text-xs font-semibold">

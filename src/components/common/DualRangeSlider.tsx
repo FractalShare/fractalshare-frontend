@@ -48,7 +48,7 @@ export default function DualRangeSlider({
 
   return (
     <div className="w-full">
-      <label className="text-sm font-semibold text-gray-800 block mb-2">{label}</label>
+      <label className="text-sm text-gray-800 block mb-2">{label}</label>
 
       <SliderPrimitive.Root
         className="relative flex w-full touch-none select-none items-center"
@@ -75,7 +75,7 @@ export default function DualRangeSlider({
             inputMode="numeric"
             min={min}
             max={maxVal - 1}
-            value={minVal}
+            value={minVal.toLocaleString()}
             onChange={(e) => {
               const num = parseInt(e.target.value, 10);
               handleInputChange(0, isNaN(num) ? 0 : num)
@@ -102,7 +102,7 @@ export default function DualRangeSlider({
             inputMode="numeric"
             min={minVal + 1}
             max={max}
-            value={maxVal}
+            value={maxVal.toLocaleString()}
             onChange={(e) => handleInputChange(1, Number(e.target.value))}
             className="focus:outline-none appearance-none no-spinner border-none text-right bg-transparent"
           />

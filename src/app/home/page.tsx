@@ -352,7 +352,7 @@ export default function Dashboard() {
 									<td>
 										<div className="relative w-40 h-8 bg-primary rounded-full overflow-hidden">
 											<div
-												className="absolute left-0 top-0 h-full bg-[#7DC79D]"
+												className="absolute left-0 top-0 h-full bg-secondary"
 												style={{ width: `${(r.sharesListed / r.totalShares) * 100}%` }}
 											/>
 											<span className="absolute inset-0 flex items-center justify-center text-white text-xs font-semibold">
@@ -366,7 +366,7 @@ export default function Dashboard() {
 									<td>
 										<div className="relative w-40 h-8 bg-primary rounded-full overflow-hidden">
 											<div
-												className="absolute left-0 top-0 h-full bg-[#7DC79D]"
+												className="absolute left-0 top-0 h-full bg-secondary"
 												style={{ width: `${(r.sharesListed / r.totalShares) * 100}%` }}
 											/>
 											<span className="absolute inset-0 flex items-center justify-center text-white text-xs font-semibold">
@@ -458,7 +458,7 @@ export default function Dashboard() {
 								className="flex items-center justify-between text-xs"
 							>
 								<span className="w-1/4">{item.title}</span>
-								<div className="relative w-1/4 h-5 bg-[#7DC79D] rounded-full overflow-hidden">
+								<div className="relative w-1/4 h-5 bg-secondary rounded-full overflow-hidden">
 									<div
 										className="absolute left-0 top-0 h-full bg-primary"
 										style={{ width: `${100-item.leftPercent}%` }}

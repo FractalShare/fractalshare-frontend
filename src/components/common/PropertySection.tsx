@@ -27,8 +27,13 @@ export default function PropertySection({
   filter,
 }: PropertySectionHeaderProps) {
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [visibleCards, setVisibleCards] = useState(0);
+
+  const cardWidth = 300 + 16; // 300px card + 16px spacing
 
   const checkScroll = () => {
     if (!scrollRef.current) return;
@@ -39,13 +44,27 @@ export default function PropertySection({
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const amount = 360;
+      const amount = visibleCards * cardWidth;
       scrollRef.current.scrollBy({
         left: direction === 'left' ? -amount : amount,
         behavior: 'smooth',
       });
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.offsetWidth;
+        const fullCards = Math.floor(width / cardWidth);
+        setVisibleCards(fullCards);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -61,7 +80,7 @@ export default function PropertySection({
     <section className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">{title}</h3>
+          <h3 className="text-lg font-bold text-newblack">{title}</h3>
           <p className="text-sm text-gray-500">{subtitle}</p>
         </div>
         <div className="flex space-x-2">
@@ -90,15 +109,20 @@ export default function PropertySection({
         </div>
       </div>
       {filter}
-      <div
-        ref={scrollRef}
-        className="flex space-x-4 overflow-x-auto scrollbar-hide pb-2 scroll-smooth"
-      >
-        {listings.map((listing, index) => (
-          <div key={index} className="min-w-[300px] max-w-[300px] flex-shrink-0">
-            <PropertyCard {...listing} />
-          </div>
-        ))}
+      <div ref={containerRef}>
+        <div
+          ref={scrollRef}
+          className="flex space-x-4 overflow-x-auto scrollbar-hide pb-2 scroll-smooth snap-x snap-mandatory"
+        >
+          {listings.map((listing, index) => (
+            <div
+              key={index}
+              className="min-w-[300px] max-w-[300px] flex-shrink-0 snap-start"
+            >
+              <PropertyCard {...listing} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

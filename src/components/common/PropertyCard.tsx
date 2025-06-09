@@ -37,24 +37,19 @@ export default function PropertyCard({
             className="object-cover"
           />
           <div className="absolute top-2 left-2 z-20">
-            {isActive ? (
-              <div className="flex items-center gap-2 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
-                <span>Active</span>
+              <div className="flex items-center gap-2 bg-white/80 text-white text-xs px-3 py-1 rounded-full">
+                {/* <span className="h-2 w-2 rounded-full bg-red-500" /> */}
+                <span className='text-newblack font-medium'>{percentRemaining}% remaining</span>
               </div>
-            ) : (
-              <div className="flex items-center gap-2 bg-black/80 text-white text-sm px-3 py-1 rounded-full">
-                <span className="h-2 w-2 rounded-full bg-red-500" />
-                <span>Inactive</span>
-              </div>
-            )}
           </div>
         </div>
       <div className="p-4 text-left space-y-1">
-        <p className="text-[14px] font-bold">From ${pricePerShare} per share</p>
-        <p className="text-xs font-semibold">Values at ${valuation}</p>
-        <p className="text-xs text-[#333333]">{numOfAcres} acres • {typeOfLand} • {percentRemaining}% remaining</p>
-        <p className="text-xs text-[#333333]">{location}</p>
+        <div>
+          <p className="text-sm font-semibold">From ${pricePerShare} per share</p>
+        </div>
+        <p className="text-xs font-medium">Valued at ${valuation.toLocaleString()}</p>
+        <p className="text-xs text-basetext font-medium">{numOfAcres} acres • {typeOfLand}</p>
+        <p className="text-xs text-basetext">{location}</p>
       </div>
     </div>
   );

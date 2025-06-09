@@ -12,7 +12,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 const WAITLIST_API_URL = "/api/waitlists/"
 
 export default function Home() {
-  const {data, error, isLoading} = useSWR("/api/hello", fetcher)
+  const { data, error, isLoading } = useSWR("/api/hello", fetcher)
 
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Failed to load</div>;
@@ -21,7 +21,7 @@ export default function Home() {
   const [message, setMessage] = useState('')
   const [errors, setErrors] = useState({})
 
-  async function handleSubmit (event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setMessage('')
     setErrors({})
@@ -29,11 +29,11 @@ export default function Home() {
     const objectFromForm = Object.fromEntries(formData)
     const jsonData = JSON.stringify(objectFromForm)
     const requestOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: jsonData
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: jsonData
     }
     const response = await fetch(WAITLIST_API_URL, requestOptions)
     if (response.status === 201 || response.status === 200) {
@@ -51,13 +51,13 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#F8F5F2] via-[#F8F5F2] to-[#F8F5F2]">
       <header className="w-full flex justify-center items-center">
-        <Image src="/fs.png" alt="Fractal Share Logo" width={120} height={10} priority />
+        <Image src="/images/fs.svg" alt="Fractal Share Logo" width={120} height={10} priority />
       </header>
 
       <div className="" />
-          <h5 className="text-mb mb-8 text-gray-600"><i>FractalShare</i> | Fractional Real Estate</h5>
-          {page == 0 &&
-          <><h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#056608] via-[#33A036] to-[#52C755]">Own Land. Build Wealth.</h1>
+      <h5 className="text-mb mb-8 text-gray-600"><i>FractalShare</i> | Fractional Real Estate</h5>
+      {page == 0 &&
+        <><h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#056608] via-[#33A036] to-[#52C755]">Own Land. Build Wealth.</h1>
           <p className="mt-8 text-lg text-[#C49F56] max-w-2xl">
             FractalShare lets anyone invest in shares of real estate — starting with just $100 — by enabling fractional ownership of land and farmland.
           </p>
@@ -115,13 +115,13 @@ export default function Home() {
               <FaLinkedin size={28} className="text-blue-700" />
             </a>
           </div></>}
-          {page == 1 &&
-          <><h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff9a9e] via-[#fad0c4] to-[#fbc2eb]">Thank You for Joining!</h1>
+      {page == 1 &&
+        <><h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff9a9e] via-[#fad0c4] to-[#fbc2eb]">Thank You for Joining!</h1>
           <button className="w-full max-w-md mt-8 px-6 py-3 bg-[#ff8080] text-white font-medium rounded-lg shadow-lg hover:bg-[#E31937] transition"
             onClick={() => setPage(0)}>
             Join Another Account
           </button></>
-          }
+      }
 
     </div>
   );

@@ -16,9 +16,6 @@ import { PiFarm, PiBarnDuotone } from 'react-icons/pi';
 import { MdOutlineForest } from 'react-icons/md';
 import { BiTargetLock } from 'react-icons/bi';
 
-/* ------------------------------------------------------------------ */
-/* data                                                                */
-
 export type LandType =
   | 'Farmland'
   | 'Forest'
@@ -48,9 +45,6 @@ const LAND_TYPES: { id: LandType; icon: React.ReactNode }[] = [
   { id: 'Other', icon: <LuLandmark size={40} /> },
 ];
 
-/* ------------------------------------------------------------------ */
-/* component (function name unchanged)                                 */
-
 export default function QuestionOne({
   value,
   onAnswered,
@@ -59,7 +53,7 @@ export default function QuestionOne({
 
   const choose = (t: LandType) => {
     setSelected(t);
-    onAnswered?.(t); // ✨ tell the Questionnaire we are valid
+    onAnswered?.(t);
   };
 
   return (

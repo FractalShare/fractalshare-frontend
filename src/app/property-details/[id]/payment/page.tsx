@@ -49,15 +49,15 @@ export default function PaymentPage() {
   const selectedOption = paymentOptions.find(o => o.value === paymentMethod);
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full bg-white">
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 bg-white border-b-2 w-full">
-        <Image src="/images/fs.png" alt="Fractal Share" width={32} height={32} />
+        <Image src="/images/fs.svg" alt="Fractal Share" width={150} height={150} />
       </header>
 
         {/* Back link */}
         <div
-            className="flex text-primary mt-8 ml-8"
+            className="flex text-primary mt-4 ml-8"
             onClick={() => router.back()}
         >
             <div className='hover:scale-105 flex items-center cursor-pointer space-x-2 transition'>
@@ -66,7 +66,7 @@ export default function PaymentPage() {
             </div>
         </div>
 
-      <main className="max-w-6xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-2 gap-24">
+      <main className="max-w-6xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-2 gap-24">
         {/* Left column */}
         <div className="space-y-2 border border-gray-200 rounded-3xl p-6 divide-y divide-gray-200 space-y-6">
 

@@ -1,13 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
 import { BiMap } from 'react-icons/bi';
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import { toast } from 'react-toastify';
-import type { Answerable } from '@/types/QuestionContracts';
 import { useGoogleMaps } from '@/providers/GoogleMapsProvider';
+import type { Answerable } from '@/types/QuestionContracts';
 import type { AddressForm } from './QuestionThree';
+import type { LandType } from './QuestionOne';
+
+import {
+  LuLandmark,
+  LuTreePine,
+  LuTentTree,
+  LuWaves,
+  LuSunMedium,
+  LuFlower2,
+  LuBuilding,
+  LuTrees,
+} from 'react-icons/lu';
+import { PiFarm, PiBarnDuotone } from 'react-icons/pi';
+import { MdOutlineForest } from 'react-icons/md';
+import { BiTargetLock } from 'react-icons/bi';
+import { renderToStaticMarkup } from 'react-dom/server';
+
+/* ------------------------------------------------------------------ */
+/* constants                                                           */
 
 const mapContainerStyle = {
   width: '100%',
@@ -21,10 +39,45 @@ const mapOptions: google.maps.MapOptions = {
   draggable: false,
   keyboardShortcuts: false,
   clickableIcons: false,
-  styles: [
-    { featureType: 'poi', stylers: [{ visibility: 'off' }] },
-  ],
+  styles: [{ featureType: 'poi', stylers: [{ visibility: 'off' }] }],
 };
+
+const LAND_ICON_MAP: Record<LandType, JSX.Element> = {
+  Farmland: <PiFarm color="white" size={24} />,
+  Forest: <MdOutlineForest color="white" size={24} />,
+  'Undeveloped land': <LuTrees color="white" size={24} />,
+  Recreational: <LuTentTree color="white" size={24} />,
+  Timberland: <LuTreePine color="white" size={24} />,
+  'Hunting land': <BiTargetLock color="white" size={24} />,
+  Waterfront: <LuWaves color="white" size={24} />,
+  Ranch: <PiBarnDuotone color="white" size={24} />,
+  Desert: <LuSunMedium color="white" size={24} />,
+  Meadow: <LuFlower2 color="white" size={24} />,
+  'Mixed-use land': <LuBuilding color="white" size={24} />,
+  Other: <LuLandmark color="white" size={24} />,
+};
+
+/* ------------------------------------------------------------------ */
+/* helper                                                              */
+
+function getSVGMarker(landType: LandType): google.maps.Icon {
+  const iconMarkup = renderToStaticMarkup(LAND_ICON_MAP[landType]);
+
+  const svg = `
+    <svg width="40" height="54" viewBox="0 0 40 54" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 0C8.954 0 0 8.954 0 20C0 33.333 20 54 20 54C20 54 40 33.333 40 20C40 8.954 31.046 0 20 0Z" fill="#1db954"/>
+      <g transform="translate(8, 14)">
+        ${iconMarkup}
+      </g>
+    </svg>
+  `;
+
+  return {
+    url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`,
+    scaledSize: new window.google.maps.Size(40, 54),
+    anchor: new window.google.maps.Point(20, 54),
+  };
+}
 
 function parseAddressComponents(components: google.maps.GeocoderAddressComponent[]): AddressForm {
   const get = (type: string) =>
@@ -39,7 +92,17 @@ function parseAddressComponents(components: google.maps.GeocoderAddressComponent
   };
 }
 
-export default function QuestionTwo({ value, onAnswered }: Answerable<AddressForm>) {
+/* ------------------------------------------------------------------ */
+/* props                                                               */
+
+interface Props extends Answerable<AddressForm> {
+  selectedLandType: LandType | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* component                                                           */
+
+export default function QuestionTwo({ value, onAnswered, selectedLandType }: Props) {
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState<google.maps.places.AutocompletePrediction[]>([]);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
@@ -82,7 +145,7 @@ export default function QuestionTwo({ value, onAnswered }: Answerable<AddressFor
         setAddress(result.formatted_address);
         setSuggestions([]);
         setMapError(false);
-        onAnswered?.(parsed); // 👈 send structured form
+        onAnswered?.(parsed);
       } else {
         setMapError(true);
         toast.error('Address is invalid');
@@ -128,7 +191,7 @@ export default function QuestionTwo({ value, onAnswered }: Answerable<AddressFor
                 <li
                   key={s.place_id}
                   onClick={() => handleSelect(s)}
-                  className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
+                  className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100 first:rounded-t-3xl last:rounded-b-3xl"
                 >
                   {s.description}
                 </li>
@@ -145,7 +208,10 @@ export default function QuestionTwo({ value, onAnswered }: Answerable<AddressFor
               zoom={14}
               options={mapOptions}
             >
-              <Marker position={coords} />
+              <Marker
+                position={coords}
+                icon={selectedLandType ? getSVGMarker(selectedLandType) : undefined}
+              />
             </GoogleMap>
           ) : (
             <div className="flex items-center justify-center h-full text-gray-600">

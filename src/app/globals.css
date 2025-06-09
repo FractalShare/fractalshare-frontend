@@ -1,4 +1,4 @@
-@import "@fontsource/montserrat";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,8 +12,10 @@
 
   /* brand */
   --primary:   #35946d; /* main Fractal Share green */
-  --secondary: #187048; /* darker companion green */
+  --secondary: #7dc79d; /* light companion green */
   --tertiary: #636363;
+  --newblack: #202020;
+  --basetext: #333333;
 }
 
 /* ---------- Dark‑mode overrides ---------- */
@@ -23,7 +25,7 @@
     --foreground: #ededed;
 
     /* tweak the brand tones for better contrast on dark */
-    --primary:   #3fbb87;
+    --primary:   #35946d;
     --secondary: #2c6e50;
   }
 }

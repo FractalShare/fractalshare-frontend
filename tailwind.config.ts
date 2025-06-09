@@ -15,6 +15,8 @@ export default {
         primary:   'var(--primary)',
         secondary: 'var(--secondary)',
         tertiary: 'var(--tertiary)',
+        newblack: 'var(--newblack)',
+        basetext: 'var(--basetext)',
       },
       keyframes: {
         'spin-slow': {

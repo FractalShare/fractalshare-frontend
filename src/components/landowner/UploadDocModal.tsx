@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { FiX, FiPlus, FiFileText, FiTrash2 } from 'react-icons/fi';
+import Image from 'next/image';
 
 interface UploadDocModalProps {
   open: boolean;
@@ -85,7 +86,13 @@ export default function UploadDocModal({
                            rounded-lg border-2 border-dashed border-gray-300
                            bg-gray-100 py-12 text-gray-600"
               >
-                <FiFileText size={42} />
+                <Image
+                  src="/icons/document.png"
+                  alt="Add document"
+                  width={100}
+                  height={100}
+                  className="mb-2 object-contain"
+                />
                 <p className="mt-4 text-sm">Drag & drop</p>
                 <p className="text-sm text-gray-500">or</p>
                 <button

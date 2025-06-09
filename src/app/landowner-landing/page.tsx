@@ -5,12 +5,14 @@ import { PiMagnifyingGlass } from 'react-icons/pi';
 import AboutPropertyModal, { AboutPropertyValues } from '@/components/landowner/AboutPropertyModal';
 import { useRouter } from 'next/navigation';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { useGoogleMaps } from '@/providers/GoogleMapsProvider';
 import Image from 'next/image';
 
 export default function LandownerLanding() {
   const router = useRouter();
   const [percent, setPercent] = useState(1);
   const payout = 2000 * (percent / 1);
+  const { isLoaded } = useGoogleMaps();
 
   const [showModal, setShowModal] = useState(false);
   const [valDetails, setValDetails] = useState<AboutPropertyValues>({
@@ -20,10 +22,6 @@ export default function LandownerLanding() {
   });
 
   const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>(null);
-
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-  });
 
   const mapOptions: google.maps.MapOptions = {
     disableDefaultUI: true,

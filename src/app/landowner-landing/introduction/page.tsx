@@ -9,7 +9,7 @@ export default function OfferLandIntro() {
     <main className="min-h-screen bg-white flex flex-col">
       <nav className="flex items-center justify-between px-6 py-4">
         {/* logo */}
-        <img src="/images/logo.png" alt="Fractal Share logo" className="h-9 w-auto" />
+        <Image src="/images/fs.svg" alt="Fractal Share logo" width={150} height={150} />
 
         {/* exit */}
         <Link
@@ -23,72 +23,87 @@ export default function OfferLandIntro() {
       <section className="flex flex-1 flex-col w-full lg:flex-row lg:items-center px-6 lg:px-16 gap-12">
         {/* left column (headline) */}
         <div className='w-1/2'>
-            <h1 className="text-[clamp(28px,4vw,36px)] font-extrabold leading-snug pt-8 lg:pt-0">
+            <h1 className="text-5xl font-semibold leading-snug pt-8 lg:pt-0">
             The simplest way to offer land for investment.
             </h1>
         </div>
 
         {/* right column (steps) */}
-        <ol className="w-1/2">
+        <ol className="w-1/2 gap-6 flex flex-col">
           {/* step 1 */}
-          <li className="flex items-center gap-6">
-            <div className="flex-1">
-              <h2 className="font-semibold">1. Tell us about your land</h2>
-              <p className="mt-1 text-sm text-gray-600">
-                Share basic details like where your property is, how big it is,
-                and what kind of land it is.
-              </p>
+          <li className="flex gap-6 items-center">
+            <div className="flex flex-row gap-2 w-3/4">
+              <h2 className="font-semibold text-xl">1.</h2>
+              <div className="flex-1">
+                <h2 className="font-semibold text-xl">Tell us about your land</h2>
+                <p className="mt-1 text-basetext">
+                  Share basic details like where your property is, how big it is,
+                  and what kind of land it is.
+                </p>
+              </div>
             </div>
 
-            <Image
-              src="/images/stepone.png"
-              alt=""
-              width={150}
-              height={150}
-              className=""
-            />
+            <div className="w-1/4 flex justify-center">
+              <Image
+                src="/images/stepone.png"
+                alt=""
+                width={150}
+                height={150}
+                className=""
+              />
+            </div>
           </li>
 
           <hr />
 
           {/* step 2 */}
           <li className="flex items-center gap-6">
-            <div className="flex-1">
-              <h2 className="font-semibold">2. Upload & verify</h2>
-              <p className="mt-1 text-sm text-gray-600">
-                Easily upload ownership and zoning documents. We will help you
-                validate everything and keep it secure.
-              </p>
+            <div className="flex flex-row gap-2 w-3/4">
+              <h2 className="font-semibold text-xl">2.</h2>
+              <div className="flex-1">
+                <h2 className="font-semibold text-xl">Upload & verify</h2>
+                <p className="mt-1 text-basetext">
+                  Easily upload ownership and zoning documents. We will help you
+                  validate everything and keep it secure.
+                </p>
+              </div>
             </div>
 
-            <Image
-              src="/images/steptwo.png"
-              alt=""
-              width={100}
-              height={150}
-              className=""
-            />
+            <div className="w-1/4 flex justify-center">
+              <Image
+                src="/images/steptwo.png"
+                alt=""
+                width={100}
+                height={100}
+                className=""
+              />
+            </div>
           </li>
 
           <hr />
 
           {/* step 3 */}
           <li className="flex items-center gap-6">
-            <div className="flex-1">
-              <h2 className="font-semibold">3. Set terms & publish</h2>
-              <p className="mt-1 text-sm text-gray-600">
-                Choose your asking price, funding type, and how much of your
-                land you want to tokenize.
-              </p>
+            <div className="flex flex-row gap-2 w-3/4">
+              <h2 className="font-semibold text-xl">3.</h2>
+              <div className="flex-1">
+                <h2 className="font-semibold text-xl">Set terms & publish</h2>
+                <p className="mt-1 text-basetext">
+                  Choose your asking price, funding type, and how much of your
+                  land you want to tokenize.
+                </p>
+              </div>
             </div>
 
-            <Image
-              src="/images/stepthree.png"
-              alt=""
-              width={100}
-              height={150}
-              className=""
-            />
+            <div className="w-1/4 flex justify-center">
+              <Image
+                src="/images/stepthree.png"
+                alt=""
+                width={100}
+                height={100}
+                className=""
+              />
+            </div>
           </li>
         </ol>
       </section>
